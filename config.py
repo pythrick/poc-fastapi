@@ -12,6 +12,8 @@ config = ConfigFactory.parse_file(BASE_DIR / CONF_ENV[FASTAPI_ENV])
 
 DATABASE_URL = config.get("database_url")
 
+CORS_ORIGINS = config.get("cors.origins", [])
+
 SECRET_KEY = config.get("secret_key")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30

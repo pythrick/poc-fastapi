@@ -171,7 +171,7 @@ ENV/
 env.bak/
 venv.bak/
 
-.local.conf
+local.conf
 # Spyder project settings
 .spyderproject
 .spyproject

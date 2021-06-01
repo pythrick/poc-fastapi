@@ -5,7 +5,7 @@
 - [x] Authentication with JWT
 - [ ] Authorization based on users role and permission
 - [ ] Error handling of the errors in one place
-- [ ] CORS
+- [x] CORS
 - [ ] Handling standard readiness and liveness request (they don't require auth)
 - [ ] Example of Swagger using FastAPI approach that covers different use cases and has enough comments
 - [ ] Integration with NewRelic
