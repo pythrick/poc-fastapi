@@ -4,7 +4,7 @@ from mixer.backend.sqlalchemy import mixer
 
 from poc_fastapi.app import app
 from poc_fastapi.db.base import async_session, init_models
-from poc_fastapi.services.user import create_access_token
+from poc_fastapi.services.auth import create_access_token
 
 
 @pytest.fixture(autouse=True)

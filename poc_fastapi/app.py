@@ -8,11 +8,13 @@ from fastapi.middleware.cors import CORSMiddleware
 import config
 from poc_fastapi.db.base import init_models
 from poc_fastapi.exceptions import InternalServerError
+from poc_fastapi.routers.auth import router as auth_router
 from poc_fastapi.routers.post import router as post_router
 from poc_fastapi.routers.user import router as user_router
 
 app = FastAPI()
 
+app.include_router(auth_router)
 app.include_router(post_router)
 app.include_router(user_router)
 

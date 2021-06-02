@@ -16,6 +16,12 @@ class InvalidPassword(HTTPException):
 
 
 @dataclass
+class AuthenticationError(HTTPException):
+    status_code: int = status.HTTP_401_UNAUTHORIZED
+    detail: str = "Unable to authenticate with provided credentials."
+
+
+@dataclass
 class UserAlreadyExists(HTTPException):
     status_code: int = status.HTTP_422_UNPROCESSABLE_ENTITY
     detail: str = "Unavailable username"

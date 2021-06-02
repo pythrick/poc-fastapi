@@ -5,9 +5,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from poc_fastapi.db.base import get_session
 from poc_fastapi.exceptions import UserAlreadyExists
 from poc_fastapi.models.user import User
-from poc_fastapi.schemas.user import TokenSchema, UserInSchema, UserSchema
+from poc_fastapi.schemas.auth import TokenSchema
+from poc_fastapi.schemas.user import UserInSchema, UserSchema
 from poc_fastapi.services import user as user_service
-from poc_fastapi.services.user import create_access_token, get_current_user
+from poc_fastapi.services.auth import create_access_token
+from poc_fastapi.services.user import get_current_user
 
 router = APIRouter(prefix="/users", tags=["users"])
 

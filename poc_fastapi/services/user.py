@@ -1,19 +1,16 @@
-from datetime import datetime, timedelta
 from uuid import UUID
 
 from fastapi import Depends
-from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from fastapi.security import HTTPAuthorizationCredentials
 from jose import jwt
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.sql import select
 
-from config import ACCESS_TOKEN_EXPIRE_MINUTES, ALGORITHM, SECRET_KEY
+from config import ALGORITHM, HTTP_BEARER, SECRET_KEY
 from poc_fastapi.db.base import get_session
 from poc_fastapi.exceptions import InvalidCredentials, UserNotFound
 from poc_fastapi.models.user import User
 from poc_fastapi.schemas.user import UserInSchema
-
-http_bearer = HTTPBearer()
 
 
 async def create_user(session: AsyncSession, user_schema: UserInSchema) -> User:
@@ -31,19 +28,16 @@ async def get_user_by_uuid(session: AsyncSession, user_uuid: UUID) -> User:
     return first_result[0]
 
 
-async def create_access_token(
-    user: User, expire_minutes: int = ACCESS_TOKEN_EXPIRE_MINUTES
-):
-    data = {
-        "sub": str(user.uuid),
-        "exp": datetime.utcnow() + timedelta(minutes=expire_minutes),
-    }
-    encoded_jwt = jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)
-    return encoded_jwt
+async def get_user_by_username(session: AsyncSession, username: str) -> User:
+    result = await session.execute(select(User).where(User.username == username))
+    first_result = result.first()
+    if not first_result:
+        raise UserNotFound
+    return first_result[0]
 
 
 async def get_current_user(
-    http_credentials: HTTPAuthorizationCredentials = Depends(http_bearer),
+    http_credentials: HTTPAuthorizationCredentials = Depends(HTTP_BEARER),
     session: AsyncSession = Depends(get_session),
 ) -> User:
     try:

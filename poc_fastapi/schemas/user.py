@@ -14,8 +14,3 @@ class UserSchema(BaseModel):
 class UserInSchema(BaseModel):
     username: str
     password: str
-
-
-class TokenSchema(BaseModel):
-    access_token: str
-    token_type: str
