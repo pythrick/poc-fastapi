@@ -3,7 +3,7 @@
 omit =
   */tests/*
   config.py
-  main.py
+  poc_fastapi/app.py
   conftest.py
   *__init__.py
 

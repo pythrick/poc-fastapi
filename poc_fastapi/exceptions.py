@@ -4,6 +4,12 @@ from fastapi import HTTPException, status
 
 
 @dataclass
+class InternalServerError(HTTPException):
+    status_code: int = status.HTTP_500_INTERNAL_SERVER_ERROR
+    detail: str = "Internal server error."
+
+
+@dataclass
 class InvalidPassword(HTTPException):
     status_code: int = status.HTTP_422_UNPROCESSABLE_ENTITY
     detail: str = "Wrong password"

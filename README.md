@@ -4,7 +4,7 @@
 - [ ] Few endpoints (create, read, update, delete)
 - [x] Authentication with JWT
 - [ ] Authorization based on users role and permission
-- [ ] Error handling of the errors in one place
+- [x] Error handling of the errors in one place
 - [x] CORS
 - [ ] Handling standard readiness and liveness request (they don't require auth)
 - [ ] Example of Swagger using FastAPI approach that covers different use cases and has enough comments
@@ -17,7 +17,7 @@
 - [x] Linters formatting/validations (black, isort, flake8, mypy)
 - [x] Pre-commit validations
 - [x] Docker w/ docker-compose
-- [x] 100% code coverage
+- [ ] 100% code coverage
 - [x] Makefile
 
 ## Installation instructions
