@@ -1,10 +1,10 @@
 SHELL := /bin/bash
-.PHONY: all test init lint build run down lock clean
+.PHONY: all test init lint migrations migrate build run down lock clean
 
 help:
 	@$(MAKE) -pRrq -f $(lastword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$'
 
-all: all test init lint build run down lock clean
+all: all test init lint migrations migrate build run down lock clean
 
 test:
 	docker-compose run web pytest
@@ -22,6 +22,15 @@ lint:
 	docker-compose run web flake8
 	docker-compose run web mypy
 	sudo chown -R $(USER). .
+
+migrations:
+	docker-compose run web alembic revision --autogenerate
+	docker-compose run web isort .
+	docker-compose run web black .
+	sudo chown -R $(USER). .
+
+migrate:
+	docker-compose run web alembic upgrade head
 
 build:
 	docker-compose build

@@ -20,5 +20,6 @@ COPY ./pyproject.toml ./poetry.lock ./
 RUN poetry install
 
 WORKDIR /app
-
-COPY ./ ./
+COPY ./ /app
+RUN chmod +x /app/entrypoint/entrypoint.sh
+ENTRYPOINT ["/app/entrypoint/entrypoint.sh"]
