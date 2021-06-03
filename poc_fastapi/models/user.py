@@ -1,9 +1,9 @@
 from passlib.context import CryptContext
-from sqlalchemy import Column, String
+from sqlalchemy import Boolean, Column, String
 from sqlalchemy.orm import relationship
 
 from poc_fastapi.db.base import Base
-from poc_fastapi.exceptions import InvalidPassword
+from poc_fastapi.exceptions import InvalidPasswordError
 from poc_fastapi.models.base import BaseDB
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -14,6 +14,7 @@ class User(BaseDB, Base):
 
     username = Column(String(15), nullable=False, unique=True)
     hashed_password = Column(String, nullable=False)
+    is_active = Column(Boolean, nullable=False, default=True)
 
     posts = relationship("Post", back_populates="owner")
 
@@ -22,5 +23,5 @@ class User(BaseDB, Base):
 
     def verify_password(self, plain_password: str) -> bool:
         if not pwd_context.verify(plain_password, self.hashed_password):
-            raise InvalidPassword
+            raise InvalidPasswordError
         return True

@@ -1,6 +1,6 @@
 import pytest
 
-from poc_fastapi.exceptions import InvalidPassword
+from poc_fastapi.exceptions import InvalidPasswordError
 
 
 def test_user_model_set_password(user, faker):
@@ -14,5 +14,5 @@ def test_user_model_set_password(user, faker):
 
 def test_user_model_verify_invalid_password(user, faker):
     user.set_password("pa$$w0rD")
-    with pytest.raises(InvalidPassword):
+    with pytest.raises(InvalidPasswordError):
         user.verify_password("password")

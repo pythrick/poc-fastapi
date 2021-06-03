@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
 from poc_fastapi.db.base import Base
@@ -11,3 +11,4 @@ class Post(BaseDB, Base):
     content = Column(String(280), nullable=False, unique=True)
     owner_id = Column(Integer, ForeignKey("users.id"))
     owner = relationship("User", back_populates="posts")
+    is_published = Column(Boolean, nullable=False, default=False)

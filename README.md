@@ -3,7 +3,7 @@
 ## Required Features
 - [ ] Few endpoints (create, read, update, delete)
 - [x] Authentication with JWT
-- [ ] Authorization based on users role and permission
+- [x] Authorization based on users role and permission
 - [x] Error handling of the errors in one place
 - [x] CORS
 - [ ] Handling standard readiness and liveness request (they don't require auth)

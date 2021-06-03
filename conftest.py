@@ -1,3 +1,5 @@
+from unittest.mock import AsyncMock
+
 import pytest
 from httpx import AsyncClient
 from mixer.backend.sqlalchemy import mixer
@@ -51,3 +53,11 @@ def post(session, user, event_loop):
     session.add(obj)
     event_loop.run_until_complete(session.commit())
     return obj
+
+
+@pytest.fixture()
+def mock_get_current_active_user(mocker, user):
+    return mocker.patch(
+        "poc_fastapi.validators.permission.get_current_active_user",
+        side_effect=AsyncMock(return_value=user),
+    )

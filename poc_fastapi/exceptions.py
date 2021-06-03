@@ -10,7 +10,7 @@ class InternalServerError(HTTPException):
 
 
 @dataclass
-class InvalidPassword(HTTPException):
+class InvalidPasswordError(HTTPException):
     status_code: int = status.HTTP_422_UNPROCESSABLE_ENTITY
     detail: str = "Wrong password"
 
@@ -22,19 +22,31 @@ class AuthenticationError(HTTPException):
 
 
 @dataclass
-class UserAlreadyExists(HTTPException):
+class UserAlreadyExistsError(HTTPException):
     status_code: int = status.HTTP_422_UNPROCESSABLE_ENTITY
     detail: str = "Unavailable username"
 
 
 @dataclass
-class InvalidCredentials(HTTPException):
+class InvalidCredentialsError(HTTPException):
     status_code: int = status.HTTP_401_UNAUTHORIZED
     detail: str = "Could not validate credentials"
     headers: dict = field(default_factory=lambda: {"WWW-Authenticate": "Bearer"})
 
 
 @dataclass
-class UserNotFound(HTTPException):
+class UserNotFoundError(HTTPException):
     status_code: int = status.HTTP_404_NOT_FOUND
     detail: str = "User not found"
+
+
+@dataclass
+class InactiveUserError(HTTPException):
+    status_code: int = status.HTTP_403_FORBIDDEN
+    detail: str = "User is inactive"
+
+
+@dataclass
+class OperationNotPermittedError(HTTPException):
+    status_code: int = status.HTTP_403_FORBIDDEN
+    detail: str = "Operation not permitted"
