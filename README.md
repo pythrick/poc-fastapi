@@ -6,7 +6,7 @@
 - [x] Authorization based on users role and permission
 - [x] Error handling of the errors in one place
 - [x] CORS
-- [ ] Handling standard readiness and liveness request (they don't require auth)
+- [x] Handling standard readiness and liveness request (they don't require auth)
 - [ ] Example of Swagger using FastAPI approach that covers different use cases and has enough comments
 - [x] Integration with NewRelic
 - [ ] Wrap some features named above to a middleware (if it doesn't)
@@ -21,6 +21,7 @@
 - [x] Migrations with Alembic
 - [x] 100% code coverage
 - [x] Makefile
+- [x] Pagination
 
 ## Installation instructions
 ### Requirements

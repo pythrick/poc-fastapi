@@ -50,3 +50,9 @@ class InactiveUserError(HTTPException):
 class OperationNotPermittedError(HTTPException):
     status_code: int = status.HTTP_403_FORBIDDEN
     detail: str = "Operation not permitted"
+
+
+@dataclass
+class HealthCheckError(HTTPException):
+    status_code: int = status.HTTP_503_SERVICE_UNAVAILABLE
+    detail: str = "Service not health"
