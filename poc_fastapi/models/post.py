@@ -8,7 +8,7 @@ from poc_fastapi.models.base import BaseDB
 class Post(BaseDB, Base):
     __tablename__ = "posts"
 
-    content = Column(String(280), nullable=False, unique=True)
+    content = Column(String(280), nullable=False)
     owner_id = Column(Integer, ForeignKey("users.id"))
     owner = relationship("User", back_populates="posts")
     is_published = Column(Boolean, nullable=False, default=False)

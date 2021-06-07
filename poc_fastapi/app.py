@@ -1,12 +1,9 @@
-import asyncio
-
 import uvicorn
 from fastapi import FastAPI, HTTPException
 from fastapi.exception_handlers import http_exception_handler
 from fastapi.middleware.cors import CORSMiddleware
 
 import config
-from poc_fastapi.db.base import init_models
 from poc_fastapi.exceptions import InternalServerError
 from poc_fastapi.routers.auth import router as auth_router
 from poc_fastapi.routers.post import router as post_router
@@ -35,5 +32,4 @@ async def custom_exception_handler(request, exc):
 
 
 if __name__ == "__main__":
-    asyncio.run(init_models())
     uvicorn.run("poc_fastapi.app:app", reload=True)

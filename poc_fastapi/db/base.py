@@ -12,9 +12,10 @@ async_session = sessionmaker(async_engine, class_=AsyncSession, expire_on_commit
 
 
 async def init_models():
-    async with async_engine.begin() as conn:
-        await conn.run_sync(Base.metadata.drop_all)
-        await conn.run_sync(Base.metadata.create_all)
+    if config.FASTAPI_ENV == "testing":
+        async with async_engine.begin() as conn:
+            await conn.run_sync(Base.metadata.drop_all)
+            await conn.run_sync(Base.metadata.create_all)
 
 
 # Dependency

@@ -5,6 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from poc_fastapi.db.base import get_session
 from poc_fastapi.models import User
+from poc_fastapi.schemas.params import ParamsSchema
 from poc_fastapi.schemas.post import PostInSchema, PostSchema
 from poc_fastapi.services import post as post_service
 from poc_fastapi.services.user import get_current_active_user
@@ -15,13 +16,24 @@ router = APIRouter(prefix="/posts", tags=["posts"])
 has_create_post_permission = PermissionValidator(
     required_perms={"create-post"}, allowed_roles={"writer"}
 )
+has_list_post_permission = PermissionValidator(
+    required_perms={"list-post"}, allowed_roles={"reader"}
+)
 
 
-@router.get("/", response_model=List[PostSchema])
+@router.get(
+    "/",
+    response_model=List[PostSchema],
+    dependencies=[Depends(has_list_post_permission)],
+)
 async def list_posts_endpoint(
+    params: ParamsSchema = Depends(),
     session: AsyncSession = Depends(get_session),
 ) -> List[PostSchema]:
-    ...
+    posts = await post_service.list_posts(
+        session, limit=params.limit, offset=params.skip
+    )
+    return [PostSchema.from_orm(p) for p in posts]
 
 
 @router.post(

@@ -60,7 +60,7 @@ async def get_current_active_user(
 
 async def list_user_perms(user: User) -> Set[str]:
     # TODO: Create real implementation
-    return {"create-post", "edit-post", "read-post", "delete-post"}
+    return {"create-post", "edit-post", "read-post", "delete-post", "list-post"}
 
 
 async def list_user_roles(user: User) -> Set[str]:

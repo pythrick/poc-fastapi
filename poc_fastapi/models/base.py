@@ -32,5 +32,8 @@ class BaseDB:
     def updated_at(cls):
         return Column(DateTime, onupdate=datetime.utcnow)
 
+    def __str__(self):
+        return str(self.uuid)
+
     def __repr__(self):
         return f"{self.__class__.__name__}({self})"
