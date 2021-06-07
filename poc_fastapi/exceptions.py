@@ -41,6 +41,12 @@ class UserNotFoundError(HTTPException):
 
 
 @dataclass
+class PostNotFoundError(HTTPException):
+    status_code: int = status.HTTP_404_NOT_FOUND
+    detail: str = "Post not found"
+
+
+@dataclass
 class InactiveUserError(HTTPException):
     status_code: int = status.HTTP_403_FORBIDDEN
     detail: str = "User is inactive"

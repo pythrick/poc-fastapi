@@ -1,5 +1,6 @@
 import uuid
 from datetime import datetime
+from typing import Tuple
 
 from sqlalchemy import Column, DateTime, Integer
 from sqlalchemy.ext.declarative import declared_attr
@@ -7,7 +8,7 @@ from sqlalchemy_utils.types.uuid import UUIDType
 
 
 class BaseDB:
-    non_editable_fields = ()
+    non_editable_fields: Tuple = ()
     default_non_editable_fields = ("id", "created_at", "updated_at")
 
     @declared_attr

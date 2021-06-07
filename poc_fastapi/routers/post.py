@@ -1,4 +1,5 @@
 from typing import List
+from uuid import UUID
 
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -18,6 +19,9 @@ has_create_post_permission = PermissionValidator(
 )
 has_list_post_permission = PermissionValidator(
     required_perms={"list-post"}, allowed_roles={"reader"}
+)
+has_delete_post_permission = PermissionValidator(
+    required_perms={"delete-post"}, allowed_roles={"maintainer"}
 )
 
 
@@ -50,3 +54,18 @@ async def create_post_endpoint(
     post_db = await post_service.create_post(session, post, current_user.id)
     await session.commit()
     return PostSchema.from_orm(post_db)
+
+
+@router.delete(
+    "/{post_id}/",
+    response_model=None,
+    status_code=status.HTTP_204_NO_CONTENT,
+    dependencies=[Depends(has_delete_post_permission)],
+)
+async def delete_post_endpoint(
+    post_id: UUID,
+    current_user: User = Depends(get_current_active_user),
+    session: AsyncSession = Depends(get_session),
+):
+    post = await post_service.get_post_by_uuid(session, post_id, owner=current_user)
+    await post_service.delete_post(session, post)
