@@ -1,7 +1,7 @@
 # PoC FastAPI
 
 ## Required Features
-- [ ] Few endpoints (create, read, update, delete)
+- [ ] Some endpoints (create, read, update, delete)
 - [x] Authentication with JWT
 - [x] Authorization based on users role and permission
 - [x] Error handling of the errors in one place
